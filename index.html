@@ -1,10 +1,6 @@
 <!DOCTYPE html>
 <html>
 
-<head>
-  <script src="lodash.min.js"></script>
-</head>
-
 <body>
   <canvas id="fire" width="800" height="400" />
 
@@ -40,19 +36,19 @@
     }
 
     function draw() {
-      var CELL_SIZE = 5
-      _.forEach(firePixels, function (line, y) {
-        _.forEach(line, function (cell, x) {
-          ctx.fillStyle = colours[cell]
+      var CELL_SIZE = 6
+      for (y = 0; y < GRID_HEIGHT; y++) {
+        for (x = 0; x < GRID_WIDTH; x++) {
+          ctx.fillStyle = colours[firePixels[y][x]]
           ctx.fillRect(x * CELL_SIZE, c.height - (y * CELL_SIZE), CELL_SIZE, CELL_SIZE)
-        })
-      })
+        }
+      }
     }
 
     setInterval(() => { spreadFire(); draw() }, 100)
 
-    // setInterval(() => { firePixels[0] = Array(GRID_WIDTH).fill(0) }, 5000)
-    // setInterval(() => { firePixels[0] = Array(GRID_WIDTH).fill(36) }, 10000)
+    setInterval(() => { firePixels[0] = Array(GRID_WIDTH).fill(0) }, 15000)
+    setInterval(() => { firePixels[0] = Array(GRID_WIDTH).fill(36) }, 10000)
 
   </script>
 
