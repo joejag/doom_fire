@@ -33,16 +33,16 @@
   <canvas id="fire" width="800" height="400" />
 
   <script>
-    var c = document.getElementById("fire")
-    var ctx = c.getContext("2d")
+    const c = document.getElementById("fire")
+    const ctx = c.getContext("2d")
 
-    var GRID_HEIGHT = 100
-    var GRID_WIDTH = 200
-    var CELL_SIZE = 5
+    const GRID_HEIGHT = 100
+    const GRID_WIDTH = 200
+    const CELL_SIZE = 5
 
-    var crossWindXDiff = 3
-    var sliderX = document.getElementById("crossWindSliderX");
-    var outputX = document.getElementById("crossWindSliderXSpan");
+    let crossWindXDiff = 3
+    const sliderX = document.getElementById("crossWindSliderX");
+    const outputX = document.getElementById("crossWindSliderXSpan");
     sliderX.value = crossWindXDiff
     outputX.innerHTML = sliderX.value;
     sliderX.oninput = function () {
@@ -50,9 +50,9 @@
       outputX.innerHTML = this.value
     }
 
-    var crossWindYDiff = 1
-    var sliderY = document.getElementById("crossWindSliderY");
-    var outputY = document.getElementById("crossWindSliderYSpan");
+    let crossWindYDiff = 1
+    const sliderY = document.getElementById("crossWindSliderY");
+    const outputY = document.getElementById("crossWindSliderYSpan");
     sliderY.value = crossWindYDiff
     outputY.innerHTML = sliderY.value;
     sliderY.oninput = function () {
@@ -60,9 +60,9 @@
       outputY.innerHTML = this.value
     }
 
-    var heatChangeDiff = 3
-    var sliderH = document.getElementById("heatChangeDiffSlider");
-    var outputH = document.getElementById("heatChangeDiffSliderSpan");
+    let heatChangeDiff = 3
+    const sliderH = document.getElementById("heatChangeDiffSlider");
+    const outputH = document.getElementById("heatChangeDiffSliderSpan");
     sliderH.value = heatChangeDiff
     outputH.innerHTML = sliderH.value;
     sliderH.oninput = function () {
@@ -78,7 +78,7 @@
       }
     }
 
-    var colours = {
+    const colours = {
       0: '#000000', 1: '#070707', 2: '#1f0707', 3: '#2f0f07', 4: '#470f07', 5: '#571707', 6: '#671f07', 7: '#771f07',
       8: '#8f2707', 9: '#9f2f07', 10: '#af3f07', 11: '#bf4707', 12: '#c74707', 13: '#DF4F07', 14: '#DF5707', 15: '#DF5707',
       16: '#D75F07', 17: '#D7670F', 18: '#cf6f0f', 19: '#cf770f', 20: '#cf7f0f', 21: '#CF8717', 22: '#C78717', 23: '#C78F17',
@@ -86,30 +86,31 @@
       32: '#B7B737', 33: '#CFCF6F', 34: '#DFDF9F', 35: '#EFEFC7', 36: '#FFFFFF'
     }
 
-    var firePixels = Array(GRID_HEIGHT).fill([])
+    // Create the world
+    const firePixels = Array(GRID_HEIGHT).fill([])
     firePixels[0] = Array(GRID_WIDTH).fill(36)
     for (y = 1; y < GRID_HEIGHT; y++) {
       firePixels[y] = Array(GRID_WIDTH).fill(0)
     }
 
-    function spreadFire() {
+    const spreadFire = () => {
       for (y = 1; y < GRID_HEIGHT; y++) {
         for (x = 0; x < GRID_WIDTH; x++) {
-          var randHeatChange = Math.round(Math.random() * heatChangeDiff)
-          var nextColour = Math.max(0, firePixels[y - 1][x] - (randHeatChange))
+          const randHeatChange = Math.round(Math.random() * heatChangeDiff)
+          const nextColour = Math.max(0, firePixels[y - 1][x] - (randHeatChange))
 
-          var randX = Math.round(Math.random() * crossWindXDiff)
-          var crossWindSpeedX = Math.min(GRID_WIDTH - 1, Math.max(0, x - randX + 1))
+          const randX = Math.round(Math.random() * crossWindXDiff)
+          const crossWindSpeedX = Math.min(GRID_WIDTH - 1, Math.max(0, x - randX + 1))
 
-          var randY = Math.round(Math.random() * crossWindYDiff)
-          var crossWindSpeedY = Math.min(GRID_HEIGHT - 1, Math.max(0, y + randY))
+          const randY = Math.round(Math.random() * crossWindYDiff)
+          const crossWindSpeedY = Math.min(GRID_HEIGHT - 1, Math.max(0, y + randY))
 
           firePixels[crossWindSpeedY][crossWindSpeedX] = nextColour
         }
       }
     }
 
-    function draw() {
+    const draw = () => {
       for (y = 0; y < GRID_HEIGHT; y++) {
         for (x = 0; x < GRID_WIDTH; x++) {
           ctx.fillStyle = colours[firePixels[y][x]]
