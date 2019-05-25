@@ -7,8 +7,12 @@
 
 <body>
 
-  <p><em>Inspiration <a href="https://fabiensanglard.net/doom_fire_psx/">Doom fire</a></em></p>
-  <div class="slidecontainer">
+  <h2>Doom Fire</h2>
+
+  <p><em><a href="https://fabiensanglard.net/doom_fire_psx/">Inspiration</a>, <a
+        href="https://github.com/joejag/doom_fire">Source Code</a></em></p>
+
+  <div class="controls">
     <p>
       <input type="range" min="-3" max="5" value="3" id="crossWindSliderX"> <span id="crossWindSliderXSpan"></span> :
       Wind speed X
@@ -22,10 +26,7 @@
         id="heatChangeDiffSliderSpan"></span> : Heat intensity
     </p>
     <p>
-      <label class="switch">
-        <input type="checkbox" id="powerButton" checked>
-        <span class="slider"></span>
-      </label> : Power Button
+      <input type="checkbox" id="powerButton" checked> : Power Button
     </p>
   </div>
 
@@ -33,7 +34,7 @@
 
   <script>
     var c = document.getElementById("fire")
-    var ctx = document.getElementById("fire").getContext("2d")
+    var ctx = c.getContext("2d")
 
     var GRID_HEIGHT = 100
     var GRID_WIDTH = 200
