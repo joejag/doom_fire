@@ -1,10 +1,6 @@
 <!DOCTYPE html>
 <html>
 
-<head>
-
-</head>
-
 <body>
 
   <h2>Doom Fire</h2>
@@ -41,32 +37,32 @@
     const CELL_SIZE = 5
 
     let crossWindXDiff = 3
-    const sliderX = document.getElementById("crossWindSliderX");
-    const outputX = document.getElementById("crossWindSliderXSpan");
+    const sliderX = document.getElementById("crossWindSliderX")
+    const outputX = document.getElementById("crossWindSliderXSpan")
     sliderX.value = crossWindXDiff
-    outputX.innerHTML = sliderX.value;
+    outputX.innerHTML = sliderX.value
     sliderX.oninput = function () {
-      crossWindXDiff = this.value;
+      crossWindXDiff = this.value
       outputX.innerHTML = this.value
     }
 
     let crossWindYDiff = 1
-    const sliderY = document.getElementById("crossWindSliderY");
-    const outputY = document.getElementById("crossWindSliderYSpan");
+    const sliderY = document.getElementById("crossWindSliderY")
+    const outputY = document.getElementById("crossWindSliderYSpan")
     sliderY.value = crossWindYDiff
-    outputY.innerHTML = sliderY.value;
+    outputY.innerHTML = sliderY.value
     sliderY.oninput = function () {
-      crossWindYDiff = this.value;
+      crossWindYDiff = this.value
       outputY.innerHTML = this.value
     }
 
     let heatChangeDiff = 3
-    const sliderH = document.getElementById("heatChangeDiffSlider");
-    const outputH = document.getElementById("heatChangeDiffSliderSpan");
+    const sliderH = document.getElementById("heatChangeDiffSlider")
+    const outputH = document.getElementById("heatChangeDiffSliderSpan")
     sliderH.value = heatChangeDiff
-    outputH.innerHTML = sliderH.value;
+    outputH.innerHTML = sliderH.value
     sliderH.oninput = function () {
-      heatChangeDiff = 10 / this.value;
+      heatChangeDiff = 10 / this.value
       outputH.innerHTML = this.value
     }
 
