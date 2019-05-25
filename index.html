@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <script src="lodash.min.js"></script>
+</head>
+
+<body>
+  <canvas id="fire" width="500" height="250" />
+
+  <script>
+    var colours = {
+      0: '#070707', 1: '#1f0707', 2: '#2f0f07', 3: '#470f07', 4: '#571707', 5: '#671f07', 6: '#771f07',
+      7: '#8f2707', 8: '#9f2f07', 9: '#af3f07', 10: '#bf4707', 11: '#c74707', 12: '#DF4F07', 13: '#DF5707',
+      14: '#DF5707', 15: '#D75F07', 16: '#D7670F', 17: '#cf6f0f', 18: '#cf770f', 19: '#cf7f0f', 20: '#CF8717',
+      21: '#C78717', 22: '#C78F17', 23: '#C7971F', 24: '#BF9F1F', 25: '#BF9F1F', 26: '#BFA727', 27: '#BFA727',
+      28: '#BFAF2F', 29: '#B7AF2F', 30: '#B7B72F', 31: '#B7B737', 32: '#CFCF6F', 33: '#DFDF9F', 34: '#EFEFC7',
+      35: '#FFFFFF'
+    }
+    var grid = _.fill(Array(500), _.fill(Array(249), 0))
+
+    var c = document.getElementById("fire")
+    var ctx = c.getContext("2d")
+
+    _.forEach(grid, function (line, x) {
+      _.forEach(line, function (cell, y) {
+        ctx.fillStyle = colours[cell]
+        ctx.fillRect(x, y, 1, 1)
+      })
+    })
+
+  </script>
+
+</body>
+
+</html>
