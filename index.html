@@ -10,16 +10,16 @@
 
   <div class="controls">
     <p>
-      <input type="range" min="-3" max="5" value="3" id="crossWindSliderX"> <span id="crossWindSliderXSpan"></span> :
+      <input type="range" min="-4" max="5" id="crossWindSliderX"> <span id="crossWindSliderXSpan"></span> :
       Wind speed X
     </p>
     <p>
-      <input type="range" min="0" max="6" value="1" id="crossWindSliderY"> <span id="crossWindSliderYSpan"></span> :
+      <input type="range" min="0" max="6" id="crossWindSliderY"> <span id="crossWindSliderYSpan"></span> :
       Wind speed Y
     </p>
     <p>
-      <input type="range" min="1" max="10" value="3" id="heatChangeDiffSlider"> <span
-        id="heatChangeDiffSliderSpan"></span> : Heat intensity
+      <input type="range" min="1" max="10" id="heatChangeDiffSlider"> <span id="heatChangeDiffSliderSpan"></span> : Heat
+      intensity
     </p>
     <p>
       <input type="checkbox" id="powerButton" checked> : Power Button
@@ -36,7 +36,7 @@
     const GRID_WIDTH = 200
     const CELL_SIZE = 5
 
-    let crossWindXDiff = 3
+    let crossWindXDiff = 2
     const sliderX = document.getElementById("crossWindSliderX")
     const outputX = document.getElementById("crossWindSliderXSpan")
     sliderX.value = crossWindXDiff
@@ -84,9 +84,13 @@
 
     // Create the world
     const firePixels = Array(GRID_HEIGHT).fill([])
-    firePixels[0] = Array(GRID_WIDTH).fill(36)
+    firePixels[0] = Array(GRID_WIDTH).fill(36) // base of pure white fire
     for (y = 1; y < GRID_HEIGHT; y++) {
-      firePixels[y] = Array(GRID_WIDTH).fill(0)
+      firePixels[y] = Array(GRID_WIDTH).fill(0) // air above it
+    }
+
+    Math.clamp = (num, lower, upper) => { // In ES2017
+      return Math.min(upper, Math.max(lower, num))
     }
 
     const spreadFire = () => {
@@ -96,12 +100,12 @@
           const nextColour = Math.max(0, firePixels[y - 1][x] - (randHeatChange))
 
           const randX = Math.round(Math.random() * crossWindXDiff)
-          const crossWindSpeedX = Math.min(GRID_WIDTH - 1, Math.max(0, x - randX + 1))
+          const xToSpreadTo = Math.clamp(x + randX, 0, GRID_WIDTH - 1)
 
           const randY = Math.round(Math.random() * crossWindYDiff)
-          const crossWindSpeedY = Math.min(GRID_HEIGHT - 1, Math.max(0, y + randY))
+          const yToSpeadTo = Math.clamp(y + randY, 0, GRID_HEIGHT - 1)
 
-          firePixels[crossWindSpeedY][crossWindSpeedX] = nextColour
+          firePixels[yToSpeadTo][xToSpreadTo] = nextColour
         }
       }
     }
