@@ -6,28 +6,53 @@
 </head>
 
 <body>
-  <canvas id="fire" width="500" height="250" />
+  <canvas id="fire" width="800" height="400" />
 
   <script>
-    var colours = {
-      0: '#070707', 1: '#1f0707', 2: '#2f0f07', 3: '#470f07', 4: '#571707', 5: '#671f07', 6: '#771f07',
-      7: '#8f2707', 8: '#9f2f07', 9: '#af3f07', 10: '#bf4707', 11: '#c74707', 12: '#DF4F07', 13: '#DF5707',
-      14: '#DF5707', 15: '#D75F07', 16: '#D7670F', 17: '#cf6f0f', 18: '#cf770f', 19: '#cf7f0f', 20: '#CF8717',
-      21: '#C78717', 22: '#C78F17', 23: '#C7971F', 24: '#BF9F1F', 25: '#BF9F1F', 26: '#BFA727', 27: '#BFA727',
-      28: '#BFAF2F', 29: '#B7AF2F', 30: '#B7B72F', 31: '#B7B737', 32: '#CFCF6F', 33: '#DFDF9F', 34: '#EFEFC7',
-      35: '#FFFFFF'
-    }
-    var grid = _.fill(Array(500), _.fill(Array(249), 0))
-
     var c = document.getElementById("fire")
-    var ctx = c.getContext("2d")
+    var ctx = document.getElementById("fire").getContext("2d")
 
-    _.forEach(grid, function (line, x) {
-      _.forEach(line, function (cell, y) {
-        ctx.fillStyle = colours[cell]
-        ctx.fillRect(x, y, 1, 1)
+    var GRID_HEIGHT = 100
+    var GRID_WIDTH = 200
+
+    var colours = {
+      0: '#000000', 1: '#070707', 2: '#1f0707', 3: '#2f0f07', 4: '#470f07', 5: '#571707', 6: '#671f07', 7: '#771f07',
+      8: '#8f2707', 9: '#9f2f07', 10: '#af3f07', 11: '#bf4707', 12: '#c74707', 13: '#DF4F07', 14: '#DF5707', 15: '#DF5707',
+      16: '#D75F07', 17: '#D7670F', 18: '#cf6f0f', 19: '#cf770f', 20: '#cf7f0f', 21: '#CF8717', 22: '#C78717', 23: '#C78F17',
+      24: '#C7971F', 25: '#BF9F1F', 26: '#BF9F1F', 27: '#BFA727', 28: '#BFA727', 29: '#BFAF2F', 30: '#B7AF2F', 31: '#B7B72F',
+      32: '#B7B737', 33: '#CFCF6F', 34: '#DFDF9F', 35: '#EFEFC7', 36: '#FFFFFF'
+    }
+    var firePixels = Array(GRID_HEIGHT).fill([])
+    firePixels[0] = Array(GRID_WIDTH).fill(36)
+    for (y = 1; y < GRID_HEIGHT; y++) {
+      firePixels[y] = Array(GRID_WIDTH).fill(0)
+    }
+
+    function spreadFire() {
+      for (y = 1; y < GRID_HEIGHT; y++) {
+        for (x = 0; x < GRID_WIDTH; x++) {
+          var rand = Math.round(Math.random() * 3.0) & 3
+          var crossWindSpeed = Math.max(0, x - rand + 1)
+          var nextColour = firePixels[y - 1][x] - (rand)
+          firePixels[y][crossWindSpeed] = Math.max(0, nextColour)
+        }
+      }
+    }
+
+    function draw() {
+      var CELL_SIZE = 5
+      _.forEach(firePixels, function (line, y) {
+        _.forEach(line, function (cell, x) {
+          ctx.fillStyle = colours[cell]
+          ctx.fillRect(x * CELL_SIZE, c.height - (y * CELL_SIZE), CELL_SIZE, CELL_SIZE)
+        })
       })
-    })
+    }
+
+    setInterval(() => { spreadFire(); draw() }, 100)
+
+    // setInterval(() => { firePixels[0] = Array(GRID_WIDTH).fill(0) }, 5000)
+    // setInterval(() => { firePixels[0] = Array(GRID_WIDTH).fill(36) }, 10000)
 
   </script>
 
